@@ -16,21 +16,21 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name="project_tag")
-public class ProjectTag {
-
+@Table(name="task_milestone")
+public class TaskMilestone {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "project_tag_id")
+    @Column(name = "task_milestone_id")
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "project_id")
-    private Project project;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "tag_id")
-    private Tag tag;
+    @JoinColumn(name = "task_id")
+    private Task task;
+
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "project_milestone_id")
+    private ProjectMilestone projectMilestone;
 
 }
