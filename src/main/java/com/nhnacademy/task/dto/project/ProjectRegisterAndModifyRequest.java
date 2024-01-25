@@ -1,4 +1,4 @@
-package com.nhnacademy.task.dto;
+package com.nhnacademy.task.dto.project;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
