@@ -27,11 +27,10 @@ public class CommentService {
 
 
     public CommentResponse createComment(CommentRegisterAndModifyRequest request) {
-        Task task = taskRepository.findById(request.getTaskId()).orElseThrow(TaskNotFoundException::new);
+        Task task = taskRepository.getReferenceById(request.getTaskId());
         Comment commentTmp =
                 new Comment(request.getId(), request.getContents(), request.getUserId(), LocalDateTime.now(),
                         task);
-
         Comment comment = commentRepository.save(commentTmp);
         return CommentResponse.create(comment);
     }
