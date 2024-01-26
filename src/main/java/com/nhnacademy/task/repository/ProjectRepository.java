@@ -9,7 +9,7 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
 
 
-    ProjectResponse findByProjectId(Long projectId);
+    ProjectResponse queryById(Long projectId);
 
 
 }
