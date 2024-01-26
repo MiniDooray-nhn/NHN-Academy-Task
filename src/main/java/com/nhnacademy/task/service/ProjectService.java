@@ -5,15 +5,20 @@ import com.nhnacademy.task.domain.ProjectMilestone;
 import com.nhnacademy.task.domain.ProjectStatus;
 import com.nhnacademy.task.domain.ProjectTag;
 import com.nhnacademy.task.domain.Tag;
+import com.nhnacademy.task.dto.project.DeleteResponse;
 import com.nhnacademy.task.dto.project.ProjectRegisterAndModifyRequest;
 import com.nhnacademy.task.dto.project.ProjectRegisterAndModifyResponse;
 import com.nhnacademy.task.dto.project.ProjectResponse;
 import com.nhnacademy.task.dto.project.milestone.ProjectMileStoneRegisterAndModifyRequest;
 import com.nhnacademy.task.dto.project.milestone.ProjectMileStoneRegisterAndModifyResponse;
 import com.nhnacademy.task.dto.project.milestone.ProjectMileStoneResponse;
-import com.nhnacademy.task.dto.project.tag.ProjectTagDeleteResponse;
 import com.nhnacademy.task.dto.project.tag.ProjectTagRegisterAndModifyResponse;
 import com.nhnacademy.task.dto.project.tag.ProjectTagResponse;
+import com.nhnacademy.task.exception.ProjectIsNotExistException;
+import com.nhnacademy.task.exception.ProjectMilestoneIsNotExistException;
+import com.nhnacademy.task.exception.ProjectStatusIsNotExistException;
+import com.nhnacademy.task.exception.ProjectTagIsNotExistException;
+import com.nhnacademy.task.exception.TagIsNotExistException;
 import com.nhnacademy.task.repository.ProjectMemberRepository;
 import com.nhnacademy.task.repository.ProjectMileStoneRepository;
 import com.nhnacademy.task.repository.ProjectRepository;
@@ -67,7 +72,7 @@ public class ProjectService {
         Optional<ProjectStatus> projectStatus = projectStatusRepository.findById(registerRequest.getProjectStatusId());
 
         if (projectStatus.isEmpty()) {
-            throw new IllegalArgumentException();
+            throw new ProjectStatusIsNotExistException();
         }
 
         project.setProjectByRegisterRequest(registerRequest, projectStatus.get());
@@ -82,11 +87,11 @@ public class ProjectService {
                                                                         Long id) {
 
         // 찾았는데 없으면 예외처리
-        Project project = projectRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        Project project = projectRepository.findById(id).orElseThrow(ProjectIsNotExistException::new);
 
         // 상태없으면 예외처리
         ProjectStatus projectStatus = projectStatusRepository.findById(modifyRequest.getProjectStatusId()).orElseThrow(
-                IllegalArgumentException::new);
+                ProjectStatusIsNotExistException::new);
 
         project.setProjectByModifyRequest(modifyRequest, projectStatus);
         project = projectRepository.save(project);
@@ -96,12 +101,13 @@ public class ProjectService {
     }
 
     @Transactional
-    public void deleteProjectById(Long id) {
+    public DeleteResponse deleteProjectById(Long id) {
 
         // 프로젝트 없으면
-        projectRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        projectRepository.findById(id).orElseThrow(ProjectIsNotExistException::new);
 
         projectRepository.deleteById(id);
+        return new DeleteResponse("프로젝트 삭제");
     }
 
 
@@ -112,7 +118,7 @@ public class ProjectService {
         ProjectMilestone projectMilestone = new ProjectMilestone();
 
         // 프로젝트 업으면 터치기
-        Project project = projectRepository.findById(projectId).orElseThrow(IllegalArgumentException::new);
+        Project project = projectRepository.findById(projectId).orElseThrow(ProjectIsNotExistException::new);
 
         projectMilestone.setProjectMileStoneByRegisterRequest(project, registerRequest);
 
@@ -138,13 +144,13 @@ public class ProjectService {
     }
 
     @Transactional
-    public void deleteProjectMilestoneById(Long milestoneId) {
+    public DeleteResponse deleteProjectMilestoneById(Long milestoneId) {
 
         ProjectMilestone projectMilestone =
-                projectMileStoneRepository.findById(milestoneId).orElseThrow(IllegalArgumentException::new);
+                projectMileStoneRepository.findById(milestoneId).orElseThrow(ProjectMilestoneIsNotExistException::new);
 
         projectMileStoneRepository.deleteById(milestoneId);
-
+        return new DeleteResponse("프로젝트 마일스톤 삭제");
     }
 
 
@@ -155,7 +161,7 @@ public class ProjectService {
         // 없으면 예외
         ProjectMilestone projectMilestone =
                 projectMileStoneRepository.findById(milestoneId)
-                        .orElseThrow(IllegalArgumentException::new);
+                        .orElseThrow(ProjectMilestoneIsNotExistException::new);
 
 
         projectMilestone.setProjectMileStoneByModifyRequest(modifyRequest);
@@ -180,12 +186,10 @@ public class ProjectService {
 
     public ProjectTagRegisterAndModifyResponse registerProjectTag(Long projectId, Integer tagId) {
 
-        System.out.println(projectId + " " + tagId);
-
         // 테그없으면 터치기
-        Tag tag = tagRepository.findById(tagId).orElseThrow(IllegalArgumentException::new);
+        Tag tag = tagRepository.findById(tagId).orElseThrow(TagIsNotExistException::new);
 
-        Project project = projectRepository.findById(projectId).orElseThrow(IllegalArgumentException::new);
+        Project project = projectRepository.findById(projectId).orElseThrow(ProjectIsNotExistException::new);
 
         ProjectTag projectTag = new ProjectTag();
 
@@ -204,10 +208,10 @@ public class ProjectService {
     public ProjectTagRegisterAndModifyResponse modifyProjectTag(Integer tagId, Long projectTagId) {
 
         // 없으면 터치기
-        Tag tag = tagRepository.findById(tagId).orElseThrow(IllegalArgumentException::new);
+        Tag tag = tagRepository.findById(tagId).orElseThrow(TagIsNotExistException::new);
 
         ProjectTag projectTag =
-                projectTagRepository.findById(projectTagId).orElseThrow(IllegalArgumentException::new);
+                projectTagRepository.findById(projectTagId).orElseThrow(ProjectTagIsNotExistException::new);
 
         projectTag.setTag(tag);
 
@@ -221,13 +225,13 @@ public class ProjectService {
         return tagRegisterAndModifyRequest;
     }
 
-    public ProjectTagDeleteResponse deleteProjectTag(Long projectTagId) {
+    public DeleteResponse deleteProjectTag(Long projectTagId) {
 
         ProjectTag projectTag =
-                projectTagRepository.findById(projectTagId).orElseThrow(IllegalArgumentException::new);
+                projectTagRepository.findById(projectTagId).orElseThrow(ProjectTagIsNotExistException::new);
 
         projectTagRepository.deleteById(projectTagId);
-        return new ProjectTagDeleteResponse("프로젝트 테그 삭제");
+        return new DeleteResponse("프로젝트 테그 삭제");
     }
 
 

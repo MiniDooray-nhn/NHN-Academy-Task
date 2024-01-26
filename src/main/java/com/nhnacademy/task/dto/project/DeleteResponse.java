@@ -1,4 +1,4 @@
-package com.nhnacademy.task.dto.project.tag;
+package com.nhnacademy.task.dto.project;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectTagDeleteResponse {
+public class DeleteResponse {
 
     String message;
 

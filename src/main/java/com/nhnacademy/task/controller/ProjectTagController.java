@@ -1,6 +1,6 @@
 package com.nhnacademy.task.controller;
 
-import com.nhnacademy.task.dto.project.tag.ProjectTagDeleteResponse;
+import com.nhnacademy.task.dto.project.DeleteResponse;
 import com.nhnacademy.task.dto.project.tag.ProjectTagRegisterAndModifyResponse;
 import com.nhnacademy.task.dto.project.tag.ProjectTagResponse;
 import com.nhnacademy.task.service.ProjectService;
@@ -61,10 +61,10 @@ public class ProjectTagController {
     }
 
     @DeleteMapping("/tag/{projectTagId}")
-    public ResponseEntity<ProjectTagDeleteResponse> deleteProjectTag(
+    public ResponseEntity<DeleteResponse> deleteProjectTag(
             @PathVariable(name = "projectTagId") Long projectTagId) {
 
-        ProjectTagDeleteResponse projectTagDeleteResponse = projectService.deleteProjectTag(projectTagId);
+        DeleteResponse projectTagDeleteResponse = projectService.deleteProjectTag(projectTagId);
 
         return new ResponseEntity<>(projectTagDeleteResponse, HttpStatus.OK);
     }
