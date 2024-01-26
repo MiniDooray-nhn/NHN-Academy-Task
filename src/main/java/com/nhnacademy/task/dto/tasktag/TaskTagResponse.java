@@ -12,11 +12,11 @@ public class TaskTagResponse {
 
     private Long id;
 
-    private Task task;
+    private Long taskId;
 
-    private ProjectTag projectTag;
+    private Long projectTagId;
 
     public static TaskTagResponse create(TaskTag tasktag) {
-        return new TaskTagResponse(tasktag.getId(), tasktag.getTask(), tasktag.getProjectTag());
+        return new TaskTagResponse(tasktag.getId(), tasktag.getTask().getId(), tasktag.getProjectTag().getId());
     }
 }

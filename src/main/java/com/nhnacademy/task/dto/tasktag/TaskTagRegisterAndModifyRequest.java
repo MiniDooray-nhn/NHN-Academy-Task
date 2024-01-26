@@ -11,7 +11,7 @@ import lombok.Setter;
 public class TaskTagRegisterAndModifyRequest {
     private Long id;
 
-    private Task task;
+    private Long taskId;
 
-    private ProjectTag projectTag;
+    private Long projectTagId;
 }
