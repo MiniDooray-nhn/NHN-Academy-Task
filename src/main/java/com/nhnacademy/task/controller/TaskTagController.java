@@ -11,6 +11,7 @@ import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,33 +28,35 @@ public class TaskTagController {
     private final TaskTagService taskTagService;
 
     @PostMapping("/tasktags")
-    @ResponseStatus(HttpStatus.CREATED)
-    public TaskTagResponse createTaskTag(@Valid @RequestBody TaskTagRegisterAndModifyRequest request,
-                                         BindingResult bindingResult){
+    public ResponseEntity<TaskTagResponse> createTaskTag(@Valid @RequestBody TaskTagRegisterAndModifyRequest request,
+                                                         BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             throw new ValidationFailedException(bindingResult);
         }
-        return taskTagService.createTaskTag(request);
+        TaskTagResponse taskTagResponse = taskTagService.createTaskTag(request);
+        return new ResponseEntity<>(taskTagResponse,HttpStatus.CREATED);
     }
 
     @PutMapping("/tasktags")
-    public TaskTagDto modifyTaskTag(@Valid @RequestBody TaskTagRegisterAndModifyRequest request,
+    public ResponseEntity<TaskTagDto> modifyTaskTag(@Valid @RequestBody TaskTagRegisterAndModifyRequest request,
                                     BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new ValidationFailedException(bindingResult);
         }
-        return taskTagService.modifyTaskTag(request);
+        TaskTagDto taskTagDto = taskTagService.modifyTaskTag(request);
+        return new ResponseEntity<>(taskTagDto,HttpStatus.OK);
     }
 
 
     @DeleteMapping("/tasktags/{id}")
-    public DeleteResponse deleteTaskTag(@PathVariable("id") Long id) {
+    public ResponseEntity<DeleteResponse> deleteTaskTag(@PathVariable("id") Long id) {
         taskTagService.deleteTaskTag(id);
-        return new DeleteResponse("OK");
+        return new ResponseEntity<>(new DeleteResponse("OK"),HttpStatus.OK);
     }
 
     @GetMapping("/tasktags/{taskid}")
-    public List<TaskTagNameResponse> getAllTags(@PathVariable("taskid") Long taskId){
-        return  taskTagService.getAllTaskTagsWithName(taskId);
+    public ResponseEntity<List<TaskTagNameResponse>> getAllTags(@PathVariable("taskid") Long taskId){
+        List<TaskTagNameResponse> responses = taskTagService.getAllTaskTagsWithName(taskId);
+        return new ResponseEntity<>(responses,HttpStatus.OK);
     }
 }
