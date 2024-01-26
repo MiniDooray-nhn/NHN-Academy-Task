@@ -18,5 +18,5 @@ public class CommentRegisterAndModifyRequest {
 
     private String userId;
 
-    private Task task;
+    private Long taskId;
 }
