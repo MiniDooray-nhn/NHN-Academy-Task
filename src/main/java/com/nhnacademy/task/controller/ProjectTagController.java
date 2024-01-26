@@ -43,16 +43,16 @@ public class ProjectTagController {
     @PostMapping("/{projectId}/tag/{tagId}")
     public ResponseEntity<ProjectTagRegisterAndModifyResponse> registerProjectTag(
             @PathVariable(name = "projectId") Long projectId,
-            @PathVariable(name = "tagId") Long tagId) {
+            @PathVariable(name = "tagId") Integer tagId) {
 
         ProjectTagRegisterAndModifyResponse projectTagRegisterAndModifyResponse =
                 projectService.registerProjectTag(projectId, tagId);
         return new ResponseEntity<>(projectTagRegisterAndModifyResponse, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{tagId}/tag/{projectTagId}")
+    @PutMapping("/{projectTagId}/tag/{tagId}")
     public ResponseEntity<ProjectTagRegisterAndModifyResponse> modifyProjectTag(
-            @PathVariable(name = "tagId") Long tagId,
+            @PathVariable(name = "tagId") Integer tagId,
             @PathVariable(name = "projectTagId") Long projectTagId) {
 
         ProjectTagRegisterAndModifyResponse projectTagRegisterAndModifyResponse =
