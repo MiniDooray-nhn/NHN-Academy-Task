@@ -23,11 +23,11 @@ public class TaskTag {
     @Column(name = "task_tag_id")
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "task_id")
     private Task task;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "project_tag_id")
     private Project project;
 }

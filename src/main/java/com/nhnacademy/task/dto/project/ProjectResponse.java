@@ -1,12 +1,10 @@
 package com.nhnacademy.task.dto.project;
 
-import com.nhnacademy.task.domain.ProjectStatus;
 import java.time.LocalDate;
 
-public interface ProjectResponse {
+public interface ProjectGetResponse {
 
-
-    Long getProjectId();
+    Long getId();
 
     String getTitle();
 
