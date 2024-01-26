@@ -30,8 +30,8 @@ public class CommentController {
 
 
     @GetMapping("/comments/{id}")
-    public List<CommentDto> getCommentByTaskId(@PathVariable("id") Long commentId) {
-        List<CommentDto> commentDtoList = commentService.getAllCommentByTaskId(commentId);
+    public List<CommentDto> getCommentByTaskId(@PathVariable("id") Long taskId) {
+        List<CommentDto> commentDtoList = commentService.getAllCommentByTaskId(taskId);
         if (commentDtoList.isEmpty()) {
             return Collections.emptyList();
         }
@@ -58,14 +58,13 @@ public class CommentController {
     }
 
     @DeleteMapping("/comments/{id}")
-    public DeleteResponse deleteComment(@PathVariable("id") Long commentId,
-                                        @RequestParam("userid") String userid) {
+    public DeleteResponse deleteComment(@PathVariable("id") Long commentId) {
 
-        String userId = commentService.getCommentDetail(commentId).getUserId();
-        if (Objects.equals(userId, userid)) {
+
+
             commentService.deleteTask(commentId);
             return new DeleteResponse("OK");
-        }
-        return new DeleteResponse("Fail");
+
+
     }
 }

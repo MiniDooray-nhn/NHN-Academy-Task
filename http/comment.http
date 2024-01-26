@@ -1,0 +1,28 @@
+
+
+###
+GET http://localhost:8080/comments/12
+
+###
+POST http://localhost:8080/comments
+Content-Type: application/json
+
+{
+  "contents" : "contents",
+  "userId" : "user1",
+  "taskId" : 12
+}
+
+###
+PUT http://localhost:8080/comments
+Content-Type: application/json
+
+{
+  "id" : 17,
+  "contents" : "update",
+  "userId" : "user1",
+  "taskId" : 12
+}
+
+###
+DELETE http://localhost:8080/comments/16

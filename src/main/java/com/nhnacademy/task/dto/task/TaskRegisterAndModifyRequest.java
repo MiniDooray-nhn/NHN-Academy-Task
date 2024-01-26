@@ -16,6 +16,6 @@ public class TaskRegisterAndModifyRequest {
 
     private String contents;
 
-    private Integer projectId;
+    private Long projectId;
 
 }
