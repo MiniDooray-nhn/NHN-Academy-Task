@@ -9,13 +9,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "task_tag")
 public class TaskTag {
     @Id
@@ -29,5 +33,6 @@ public class TaskTag {
 
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "project_tag_id")
-    private Project project;
+    private ProjectTag projectTag;
+    //수정한거 말해줘야함
 }
