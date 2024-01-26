@@ -1,4 +1,5 @@
-###
+
+### /projects/{projectId}/milestone
 POST http://localhost:8080/projects/2/milestone
 Content-Type: application/json
 
@@ -7,20 +8,23 @@ Content-Type: application/json
 }
 
 
-###
+### /projects/{projectId}/milestone
 GET http://localhost:8080/projects/2/milestone
 Content-Type: application/json
 
+### /projects/milestone/{milestoneId}
+GET http://localhost:8080/projects/milestone/3
+Content-Type: application/json
 
-###
+### /projects/{projectId}/milestone/{milestoneId}
 PUT http://localhost:8080/projects/2/milestone/3
 Content-Type: application/json
 
 {
-  "name" : "asdasdads"
+  "name" : "test"
 }
 
 
-###
-DELETE http://localhost:8080/projects/2/milestone/4
+### /projects/milestone/{milestoneId}
+DELETE http://localhost:8080/projects/milestone/12418
 Content-Type: application/json
