@@ -34,5 +34,5 @@ public class TaskTag {
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "project_tag_id")
     private ProjectTag projectTag;
-    //수정한거 말해줘야함
+    
 }

@@ -1,11 +1,14 @@
 package com.nhnacademy.task.service;
 
 import com.nhnacademy.task.domain.Comment;
+import com.nhnacademy.task.domain.Task;
 import com.nhnacademy.task.dto.comment.CommentDto;
 import com.nhnacademy.task.dto.comment.CommentRegisterAndModifyRequest;
 import com.nhnacademy.task.dto.comment.CommentResponse;
 import com.nhnacademy.task.exception.CommentNotFoundException;
+import com.nhnacademy.task.exception.TaskNotFoundException;
 import com.nhnacademy.task.repository.CommentRepository;
+import com.nhnacademy.task.repository.TaskRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CommentService {
     private final CommentRepository commentRepository;
+    private final TaskRepository taskRepository;
 
     public List<CommentDto> getAllCommentByTaskId(Long id) {
         return commentRepository.findByTaskId(id);
@@ -23,9 +27,11 @@ public class CommentService {
 
 
     public CommentResponse createComment(CommentRegisterAndModifyRequest request) {
+        Task task = taskRepository.findById(request.getTaskId()).orElseThrow(TaskNotFoundException::new);
         Comment commentTmp =
                 new Comment(request.getId(), request.getContents(), request.getUserId(), LocalDateTime.now(),
-                        request.getTask());
+                        task);
+
         Comment comment = commentRepository.save(commentTmp);
         return CommentResponse.create(comment);
     }

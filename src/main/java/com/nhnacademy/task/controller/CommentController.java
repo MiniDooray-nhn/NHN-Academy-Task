@@ -1,6 +1,5 @@
 package com.nhnacademy.task.controller;
 
-import com.nhnacademy.task.dto.comment.CommentDeleteRequest;
 import com.nhnacademy.task.dto.comment.CommentDto;
 import com.nhnacademy.task.dto.comment.CommentRegisterAndModifyRequest;
 import com.nhnacademy.task.dto.comment.CommentResponse;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,8 +30,8 @@ public class CommentController {
 
 
     @GetMapping("/comments/{id}")
-    public List<CommentDto> getCommentByTaskId(@PathVariable("id") Long taskId) {
-        List<CommentDto> commentDtoList = commentService.getAllCommentByTaskId(taskId);
+    public List<CommentDto> getCommentByTaskId(@PathVariable("id") Long commentId) {
+        List<CommentDto> commentDtoList = commentService.getAllCommentByTaskId(commentId);
         if (commentDtoList.isEmpty()) {
             return Collections.emptyList();
         }
@@ -57,17 +57,15 @@ public class CommentController {
         return commentService.modifyComment(request);
     }
 
-    @DeleteMapping("/comments")
-    public DeleteResponse deleteTask(@Valid @RequestBody CommentDeleteRequest request,
-                                     BindingResult bindingResult) throws IllegalAccessException {
-        if (bindingResult.hasErrors()) {
-            throw new ValidationFailedException(bindingResult);
-        }
-        String userId = commentService.getCommentDetail(request.getCommendId()).getUserId();
-        if (Objects.equals(userId, request.getUserId())) {
-            commentService.deleteTask(request.getCommendId());
+    @DeleteMapping("/comments/{id}")
+    public DeleteResponse deleteComment(@PathVariable("id") Long commentId,
+                                        @RequestParam("userid") String userid) {
+
+        String userId = commentService.getCommentDetail(commentId).getUserId();
+        if (Objects.equals(userId, userid)) {
+            commentService.deleteTask(commentId);
             return new DeleteResponse("OK");
         }
-        throw new IllegalAccessException();
+        return new DeleteResponse("Fail");
     }
 }

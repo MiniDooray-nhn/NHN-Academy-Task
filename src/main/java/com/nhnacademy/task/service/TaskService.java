@@ -1,5 +1,6 @@
 package com.nhnacademy.task.service;
 
+
 import com.nhnacademy.task.domain.Task;
 import com.nhnacademy.task.dto.task.TaskDto;
 import com.nhnacademy.task.dto.task.TaskRegisterAndModifyRequest;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class TaskService {
     private final TaskRepository taskRepository;
+//    private final ProjectRepository projectRepository;
 
     //TODO Task가 아니라 Dto만들어서 뿌릴것
     @Transactional(readOnly = true)
@@ -25,18 +27,17 @@ public class TaskService {
     }
 
     public TaskResponse createTask(TaskRegisterAndModifyRequest request) {
+//        Project project =
         Task taskTmp = new Task(request.getId(), request.getUserId(), request.getTitle(), request.getContents(),
-                LocalDateTime.now()
-                , request.getProject());
-        Task task = taskRepository.save(taskTmp);
-        return TaskResponse.create(task);
+                LocalDateTime.now(), null);
+//                , request.getProject());
+//        Task task = taskRepository.save(taskTmp);
+        return TaskResponse.create(taskTmp);
     }
-
 
     public void deleteTask(Long id) {
         taskRepository.deleteById(id);
     }
-
 
     public TaskDto getTaskDetail(Long id) {
         TaskDto taskDto = taskRepository.queryById(id);
@@ -45,7 +46,6 @@ public class TaskService {
         }
         return taskDto;
     }
-
 
     public TaskDto modifyTask(TaskRegisterAndModifyRequest request) {
         Optional<Task> optionalTask = taskRepository.findById(request.getId());
@@ -58,9 +58,6 @@ public class TaskService {
             taskRepository.save(task);
             return taskRepository.queryById(request.getId());
         }
-
         throw new TaskNotFoundException();
     }
-
-
 }
