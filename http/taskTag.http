@@ -1,0 +1,26 @@
+###
+GET http://localhost:8080/tasktags/7
+
+
+###
+POST http://localhost:8080/tasktags
+Content-Type: application/json
+
+{
+  "taskId" : 7,
+  "projectTagId": 5
+}
+
+
+###
+DELETE http://localhost:8080/tasktags/13
+
+###
+PUT http://localhost:8080/tasktags
+Content-Type: application/json
+
+{
+  "id": 11,
+  "projectTagId": 5,
+  "taskId": 7
+}
