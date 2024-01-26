@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectDeleteResponse {
+public class DeleteResponse {
 
     String message;
 
