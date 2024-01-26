@@ -1,12 +1,13 @@
 
 
-###
+### /project/{projectId}
+
 GET http://localhost:8080/projects/1
 Content-Type: application/json
 
 
 
-###
+### /project
 POST http://localhost:8080/projects
 Content-Type: application/json
 
@@ -17,7 +18,7 @@ Content-Type: application/json
 }
 
 
-###
+### /project/{projectId}
 PUT http://localhost:8080/projects/1
 Content-Type: application/json
 
@@ -27,7 +28,7 @@ Content-Type: application/json
   "title": "aaqewqwezxc"
 }
 
-###
+### /project/{projectId}
 DELETE http://localhost:8080/projects/1
 Content-Type: application/json
 
