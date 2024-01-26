@@ -1,0 +1,26 @@
+###
+POST http://localhost:8080/projects/2/milestone
+Content-Type: application/json
+
+{
+  "name": "hello"
+}
+
+
+###
+GET http://localhost:8080/projects/2/milestone
+Content-Type: application/json
+
+
+###
+PUT http://localhost:8080/projects/2/milestone/3
+Content-Type: application/json
+
+{
+  "name" : "asdasdads"
+}
+
+
+###
+DELETE http://localhost:8080/projects/2/milestone/4
+Content-Type: application/json
