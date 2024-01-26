@@ -178,7 +178,9 @@ public class ProjectService {
         return projectTagResponse;
     }
 
-    public ProjectTagRegisterAndModifyResponse registerProjectTag(Long projectId, Long tagId) {
+    public ProjectTagRegisterAndModifyResponse registerProjectTag(Long projectId, Integer tagId) {
+
+        System.out.println(projectId + " " + tagId);
 
         // 테그없으면 터치기
         Tag tag = tagRepository.findById(tagId).orElseThrow(IllegalArgumentException::new);
@@ -199,26 +201,30 @@ public class ProjectService {
         return tagRegisterAndModifyRequest;
     }
 
-    public ProjectTagRegisterAndModifyResponse modifyProjectTag(Long tagId, Long projectTagId) {
+    public ProjectTagRegisterAndModifyResponse modifyProjectTag(Integer tagId, Long projectTagId) {
 
         // 없으면 터치기
         Tag tag = tagRepository.findById(tagId).orElseThrow(IllegalArgumentException::new);
 
         ProjectTag projectTag =
-                projectTagRepository.findByProjectId(projectTagId).orElseThrow(IllegalArgumentException::new);
+                projectTagRepository.findById(projectTagId).orElseThrow(IllegalArgumentException::new);
 
         projectTag.setTag(tag);
+
+        projectTagRepository.save(projectTag);
 
         ProjectTagRegisterAndModifyResponse tagRegisterAndModifyRequest = new ProjectTagRegisterAndModifyResponse();
         tagRegisterAndModifyRequest.setTagName(tag.getName());
         tagRegisterAndModifyRequest.setProjectId(projectTag.getProject().getId());
+
+
         return tagRegisterAndModifyRequest;
     }
 
     public ProjectTagDeleteResponse deleteProjectTag(Long projectTagId) {
 
         ProjectTag projectTag =
-                projectTagRepository.findByProjectId(projectTagId).orElseThrow(IllegalArgumentException::new);
+                projectTagRepository.findById(projectTagId).orElseThrow(IllegalArgumentException::new);
 
         projectTagRepository.deleteById(projectTagId);
         return new ProjectTagDeleteResponse("프로젝트 테그 삭제");
