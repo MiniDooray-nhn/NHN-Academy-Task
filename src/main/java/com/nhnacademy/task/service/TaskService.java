@@ -5,6 +5,7 @@ import com.nhnacademy.task.domain.Project;
 import com.nhnacademy.task.domain.Task;
 import com.nhnacademy.task.dto.project.ProjectResponse;
 import com.nhnacademy.task.dto.task.TaskDto;
+import com.nhnacademy.task.dto.task.TaskPreviewDto;
 import com.nhnacademy.task.dto.task.TaskRegisterAndModifyRequest;
 import com.nhnacademy.task.dto.task.TaskResponse;
 import com.nhnacademy.task.exception.TaskNotFoundException;
@@ -25,13 +26,12 @@ public class TaskService {
 
     //TODO Task가 아니라 Dto만들어서 뿌릴것
     @Transactional(readOnly = true)
-    public List<Task> getTasksByProjectId(Long id) {
+    public List<TaskPreviewDto> getTasksByProjectId(Long id) {
         return taskRepository.findByProjectIdOrderByCreatedAt(id);
     }
 
     public TaskResponse createTask(TaskRegisterAndModifyRequest request) {
         Project project = projectRepository.getReferenceById(request.getProjectId());
-        if(project == null) throw new RuntimeException();
         Task taskTmp = new Task(request.getId(), request.getUserId(), request.getTitle(), request.getContents(),
                 LocalDateTime.now(), project);
         Task task = taskRepository.save(taskTmp);
@@ -41,7 +41,6 @@ public class TaskService {
     public void deleteTask(Long id) {
         Task task = taskRepository.getReferenceById(id);
         taskRepository.delete(task);
-
     }
 
     public TaskDto getTaskDetail(Long id) {

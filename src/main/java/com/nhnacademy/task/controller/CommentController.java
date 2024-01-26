@@ -12,6 +12,7 @@ import java.util.Objects;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,41 +31,36 @@ public class CommentController {
 
 
     @GetMapping("/comments/{id}")
-    public List<CommentDto> getCommentByTaskId(@PathVariable("id") Long taskId) {
+    public ResponseEntity<List<CommentDto>> getCommentByTaskId(@PathVariable("id") Long taskId) {
         List<CommentDto> commentDtoList = commentService.getAllCommentByTaskId(taskId);
-        if (commentDtoList.isEmpty()) {
-            return Collections.emptyList();
-        }
-        return commentDtoList;
+
+        return new ResponseEntity<>(commentDtoList,HttpStatus.OK);
     }
 
     @PostMapping("/comments")
-    @ResponseStatus(HttpStatus.CREATED)
-    public CommentResponse createComment(@Valid @RequestBody CommentRegisterAndModifyRequest request,
+    public ResponseEntity<CommentResponse> createComment(@Valid @RequestBody CommentRegisterAndModifyRequest request,
                                          BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new ValidationFailedException(bindingResult);
         }
-        return commentService.createComment(request);
+        CommentResponse commentResponse =  commentService.createComment(request);
+        return new ResponseEntity<>(commentResponse,HttpStatus.CREATED);
     }
 
     @PutMapping("/comments")
-    public CommentDto modifyComment(@Valid @RequestBody CommentRegisterAndModifyRequest request,
+    public ResponseEntity<CommentDto> modifyComment(@Valid @RequestBody CommentRegisterAndModifyRequest request,
                                     BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new ValidationFailedException(bindingResult);
         }
-        return commentService.modifyComment(request);
+        CommentDto commentDto = commentService.modifyComment(request);
+        return new ResponseEntity<>(commentDto,HttpStatus.OK);
     }
 
     @DeleteMapping("/comments/{id}")
-    public DeleteResponse deleteComment(@PathVariable("id") Long commentId) {
-
-
-
+    public ResponseEntity<DeleteResponse> deleteComment(@PathVariable("id") Long commentId) {
             commentService.deleteTask(commentId);
-            return new DeleteResponse("OK");
-
+        return new ResponseEntity<>(new DeleteResponse("OK"),HttpStatus.OK);
 
     }
 }

@@ -35,7 +35,6 @@ public class TaskTagRepositoryImpl extends QuerydslRepositorySupport implements 
                 .innerJoin(projectTag.tag, tag)
                 .where(taskTag.task.id.eq(taskId))
                 .fetch();
-
     }
 }
 
