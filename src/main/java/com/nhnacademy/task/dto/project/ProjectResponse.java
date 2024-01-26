@@ -2,7 +2,7 @@ package com.nhnacademy.task.dto.project;
 
 import java.time.LocalDate;
 
-public interface ProjectGetResponse {
+public interface ProjectResponse {
 
     Long getId();
 
