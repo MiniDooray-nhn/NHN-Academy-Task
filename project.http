@@ -1,0 +1,33 @@
+
+
+###
+GET http://localhost:8080/projects/1
+Content-Type: application/json
+
+
+
+###
+POST http://localhost:8080/projects
+Content-Type: application/json
+
+{
+  "userId": "200",
+  "projectStatusId": 1,
+  "title": "13213"
+}
+
+
+###
+PUT http://localhost:8080/projects/1
+Content-Type: application/json
+
+{
+  "userId": "100",
+  "projectStatusId": 1,
+  "title": "aaqewqwezxc"
+}
+
+###
+DELETE http://localhost:8080/projects/1
+Content-Type: application/json
+

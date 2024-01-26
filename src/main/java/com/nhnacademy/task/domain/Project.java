@@ -1,5 +1,7 @@
 package com.nhnacademy.task.domain;
 
+import com.nhnacademy.task.dto.project.ProjectRegisterAndModifyRequest;
+import com.nhnacademy.task.dto.project.ProjectRegisterAndModifyResponse;
 import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,14 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-@Table(name="project")
+@Table(name = "project")
 public class Project {
 
     @Id
@@ -37,5 +38,27 @@ public class Project {
     @Column(name = "createdAt")
     private LocalDate createdAt;
 
+
+    public ProjectRegisterAndModifyResponse converToDto() {
+        return new ProjectRegisterAndModifyResponse(this.userId, this.projectStatus.getId(), this.title);
+    }
+
+    public void setProjectByRegisterRequest(ProjectRegisterAndModifyRequest registerRequest,
+                                            ProjectStatus projectStatus) {
+
+        this.userId = registerRequest.getUserId();
+        this.title = registerRequest.getTitle();
+        this.projectStatus = projectStatus;
+        this.createdAt = LocalDate.now();
+    }
+
+    public void setProjectByModifyRequest(ProjectRegisterAndModifyRequest registerRequest,
+                                          ProjectStatus projectStatus) {
+
+        this.userId = registerRequest.getUserId();
+        this.title = registerRequest.getTitle();
+        this.projectStatus = projectStatus;
+
+    }
 
 }

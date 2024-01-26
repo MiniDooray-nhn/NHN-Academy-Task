@@ -35,7 +35,7 @@ public class Comment {
     @Column(name = "createdAt")
     private LocalDateTime createdAt;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "task_id")
     private Task task;
 }

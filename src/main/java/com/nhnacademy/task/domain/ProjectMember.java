@@ -24,7 +24,7 @@ public class ProjectMember {
     @Column(name = "project_member_id")
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "project_id")
     private Project project;
 

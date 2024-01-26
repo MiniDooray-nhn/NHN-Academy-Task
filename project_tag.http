@@ -1,0 +1,16 @@
+###
+GET http://localhost:8080/projects/tag/1
+
+###
+GET http://localhost:8080/projects/2/tag
+
+###
+POST http://localhost:8080/projects/2/tag/3
+Content-Type: application/json
+
+###
+PUT http://localhost:8080/projects/3/tag/2
+Content-Type: application/json
+
+###
+DELETE http://localhost:8080/projects/tag/2
