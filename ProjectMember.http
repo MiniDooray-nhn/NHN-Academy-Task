@@ -1,0 +1,12 @@
+### /projects/{projectId}/member
+GET http://localhost:8080/projects/1/member
+
+
+
+### /projects/{projectId}/member/{userId}
+POST http://localhost:8080/projects/1/member/123
+Content-Type: application/json
+
+{
+  "projectId" : 1
+}
