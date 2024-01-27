@@ -11,8 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ProjectMileStoneRegisterAndModifyRequest {
 
-
-
     private String name;
 
 
