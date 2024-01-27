@@ -1,6 +1,7 @@
 package com.nhnacademy.task.service;
 
 import com.nhnacademy.task.domain.Project;
+import com.nhnacademy.task.domain.ProjectMember;
 import com.nhnacademy.task.domain.ProjectMilestone;
 import com.nhnacademy.task.domain.ProjectStatus;
 import com.nhnacademy.task.domain.ProjectTag;
@@ -9,6 +10,8 @@ import com.nhnacademy.task.dto.project.DeleteResponse;
 import com.nhnacademy.task.dto.project.ProjectRegisterAndModifyRequest;
 import com.nhnacademy.task.dto.project.ProjectRegisterAndModifyResponse;
 import com.nhnacademy.task.dto.project.ProjectResponse;
+import com.nhnacademy.task.dto.project.member.ProjectMemberResponse;
+import com.nhnacademy.task.dto.project.member.ProjectMemberRegisterResponse;
 import com.nhnacademy.task.dto.project.milestone.ProjectMileStoneRegisterAndModifyRequest;
 import com.nhnacademy.task.dto.project.milestone.ProjectMileStoneRegisterAndModifyResponse;
 import com.nhnacademy.task.dto.project.milestone.ProjectMileStoneResponse;
@@ -151,8 +154,7 @@ public class ProjectService {
     @Transactional
     public DeleteResponse deleteProjectMilestoneById(Long milestoneId) {
 
-        ProjectMilestone projectMilestone =
-                projectMileStoneRepository.findById(milestoneId).orElseThrow(ProjectMilestoneIsNotExistException::new);
+        projectMileStoneRepository.findById(milestoneId).orElseThrow(ProjectMilestoneIsNotExistException::new);
 
         projectMileStoneRepository.deleteById(milestoneId);
         return new DeleteResponse("프로젝트 마일스톤 삭제");
@@ -239,5 +241,27 @@ public class ProjectService {
         return new DeleteResponse("프로젝트 테그 삭제");
     }
 
+    public List<ProjectMemberResponse> getAllProjectMember(Long projectId) {
+
+        List<ProjectMemberResponse> projectMemberResponseList
+                = projectMemberRepository.queryAllByProjectId(projectId);
+
+        return projectMemberResponseList;
+    }
+
+    public ProjectMemberRegisterResponse registerProjectMember(Long projectId, String userId) {
+
+        ProjectMember projectMember = new ProjectMember();
+
+        Project project = projectRepository.findById(projectId).orElseThrow(ProjectIsNotExistException::new);
+
+        projectMember.setProject(project);
+        projectMember.setUserId(userId);
+
+        projectMember = projectMemberRepository.save(projectMember);
+
+        return projectMember.covertToDto();
+
+    }
 
 }
