@@ -11,7 +11,9 @@ public interface CommentDto {
 
     LocalDateTime getCreatedAt();
 
-    interface TaskDto {
+    Task getTask();
+
+    interface Task {
         Long getId();
     }
 }

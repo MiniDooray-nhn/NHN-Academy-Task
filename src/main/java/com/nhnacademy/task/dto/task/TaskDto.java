@@ -1,6 +1,7 @@
 package com.nhnacademy.task.dto.task;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public interface TaskDto {
     Long getId();
@@ -13,7 +14,9 @@ public interface TaskDto {
 
     LocalDateTime getCreatedAt();
 
-    interface ProjectDto {
+    List<Project> getProject();
+
+    interface Project {
         Long getId();
     }
 
