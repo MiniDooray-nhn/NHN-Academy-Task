@@ -1,5 +1,7 @@
 package com.nhnacademy.task.controller;
-import com.nhnacademy.task.dto.project.milestone.ProjectMileStoneDeleteResponse;
+
+
+import com.nhnacademy.task.dto.project.DeleteResponse;
 import com.nhnacademy.task.dto.project.milestone.ProjectMileStoneRegisterAndModifyRequest;
 import com.nhnacademy.task.dto.project.milestone.ProjectMileStoneRegisterAndModifyResponse;
 import com.nhnacademy.task.dto.project.milestone.ProjectMileStoneResponse;
@@ -67,11 +69,11 @@ public class ProjectMilestoneController {
     }
 
     @DeleteMapping("/milestone/{milestoneId}")
-    public ResponseEntity<ProjectMileStoneDeleteResponse> deleteProjectMilestone(
+    public ResponseEntity<DeleteResponse> deleteProjectMilestone(
             @PathVariable(name = "milestoneId") Long milestoneId) {
 
-        projectService.deleteProjectMilestoneById(milestoneId);
-        return new ResponseEntity<>(new ProjectMileStoneDeleteResponse("프로젝트에서 마일스톤 삭제 완료"), HttpStatus.OK);
+        DeleteResponse deleteResponse=projectService.deleteProjectMilestoneById(milestoneId);
+        return new ResponseEntity<>(deleteResponse, HttpStatus.OK);
     }
 
 

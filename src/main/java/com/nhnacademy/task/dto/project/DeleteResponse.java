@@ -1,4 +1,4 @@
-package com.nhnacademy.task.dto.project.milestone;
+package com.nhnacademy.task.dto.project;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectMileStoneDeleteResponse {
+public class DeleteResponse {
 
-    private String message;
+    String message;
 
 }

@@ -1,6 +1,6 @@
 package com.nhnacademy.task.domain;
 
-import javax.persistence.CascadeType;
+import com.nhnacademy.task.dto.project.member.ProjectMemberRegisterResponse;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,13 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@Table(name="project_member")
+@Table(name = "project_member")
 @Entity
 public class ProjectMember {
 
@@ -30,5 +29,13 @@ public class ProjectMember {
 
     @Column(name = "user_id")
     private String userId;
+
+
+    public ProjectMemberRegisterResponse covertToDto() {
+
+        ProjectMemberRegisterResponse projectMemberRegisterResponse = new ProjectMemberRegisterResponse();
+        projectMemberRegisterResponse.setUserId(this.userId);
+        return projectMemberRegisterResponse;
+    }
 
 }

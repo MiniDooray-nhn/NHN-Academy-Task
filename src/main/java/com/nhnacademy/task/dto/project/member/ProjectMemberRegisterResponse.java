@@ -1,4 +1,4 @@
-package com.nhnacademy.task.dto.project.tag;
+package com.nhnacademy.task.dto.project.member;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectTagDeleteResponse {
+public class ProjectMemberRegisterResponse {
 
-    String message;
+    private String userId;
+
 
 }

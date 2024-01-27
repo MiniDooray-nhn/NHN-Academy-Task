@@ -1,8 +1,9 @@
 package com.nhnacademy.task.controller;
 
-import com.nhnacademy.task.dto.project.tag.ProjectTagDeleteResponse;
+import com.nhnacademy.task.dto.project.DeleteResponse;
 import com.nhnacademy.task.dto.project.tag.ProjectTagRegisterAndModifyResponse;
 import com.nhnacademy.task.dto.project.tag.ProjectTagResponse;
+import com.nhnacademy.task.dto.project.tag.TagResponse;
 import com.nhnacademy.task.service.ProjectService;
 import java.util.List;
 import org.springframework.http.HttpStatus;
@@ -43,16 +44,16 @@ public class ProjectTagController {
     @PostMapping("/{projectId}/tag/{tagId}")
     public ResponseEntity<ProjectTagRegisterAndModifyResponse> registerProjectTag(
             @PathVariable(name = "projectId") Long projectId,
-            @PathVariable(name = "tagId") Long tagId) {
+            @PathVariable(name = "tagId") Integer tagId) {
 
         ProjectTagRegisterAndModifyResponse projectTagRegisterAndModifyResponse =
                 projectService.registerProjectTag(projectId, tagId);
         return new ResponseEntity<>(projectTagRegisterAndModifyResponse, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{tagId}/tag/{projectTagId}")
+    @PutMapping("/{projectTagId}/tag/{tagId}")
     public ResponseEntity<ProjectTagRegisterAndModifyResponse> modifyProjectTag(
-            @PathVariable(name = "tagId") Long tagId,
+            @PathVariable(name = "tagId") Integer tagId,
             @PathVariable(name = "projectTagId") Long projectTagId) {
 
         ProjectTagRegisterAndModifyResponse projectTagRegisterAndModifyResponse =
@@ -61,12 +62,21 @@ public class ProjectTagController {
     }
 
     @DeleteMapping("/tag/{projectTagId}")
-    public ResponseEntity<ProjectTagDeleteResponse> deleteProjectTag(
+    public ResponseEntity<DeleteResponse> deleteProjectTag(
             @PathVariable(name = "projectTagId") Long projectTagId) {
 
-        ProjectTagDeleteResponse projectTagDeleteResponse = projectService.deleteProjectTag(projectTagId);
+        DeleteResponse projectTagDeleteResponse = projectService.deleteProjectTag(projectTagId);
 
         return new ResponseEntity<>(projectTagDeleteResponse, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/tag")
+    public ResponseEntity<List<TagResponse>> getAllCategory() {
+
+        List<TagResponse> tagResponseList = projectService.getAllTag();
+
+        return new ResponseEntity<>(tagResponseList, HttpStatus.OK);
     }
 
 }

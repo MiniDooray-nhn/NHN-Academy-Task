@@ -1,19 +1,12 @@
 package com.nhnacademy.task.controller;
 
-import com.nhnacademy.task.dto.project.ProjectDeleteResponse;
+import com.nhnacademy.task.dto.project.DeleteResponse;
 import com.nhnacademy.task.dto.project.ProjectRegisterAndModifyRequest;
 import com.nhnacademy.task.dto.project.ProjectRegisterAndModifyResponse;
 import com.nhnacademy.task.dto.project.ProjectResponse;
-import com.nhnacademy.task.dto.project.milestone.ProjectMileStoneDeleteResponse;
-import com.nhnacademy.task.dto.project.milestone.ProjectMileStoneRegisterAndModifyRequest;
-import com.nhnacademy.task.dto.project.milestone.ProjectMileStoneRegisterAndModifyResponse;
-import com.nhnacademy.task.dto.project.milestone.ProjectMileStoneResponse;
-import com.nhnacademy.task.dto.project.tag.ProjectTagResponse;
 import com.nhnacademy.task.service.ProjectService;
-import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -63,15 +56,10 @@ public class ProjectController {
     }
 
     @DeleteMapping("/{projectId}")
-    public ResponseEntity<ProjectDeleteResponse> deleteProject(@PathVariable(name = "projectId") Long id) {
-        projectService.deleteProjectById(id);
-        return new ResponseEntity<>(new ProjectDeleteResponse("프로젝트 삭제 완료"), HttpStatus.OK);
+    public ResponseEntity<DeleteResponse> deleteProject(@PathVariable(name = "projectId") Long id) {
+        DeleteResponse deleteResponse = projectService.deleteProjectById(id);
+        return new ResponseEntity<>(deleteResponse, HttpStatus.OK);
     }
-
-
-
-
-
 
 
 }
