@@ -3,6 +3,7 @@ package com.nhnacademy.task.controller;
 import com.nhnacademy.task.dto.project.DeleteResponse;
 import com.nhnacademy.task.dto.project.tag.ProjectTagRegisterAndModifyResponse;
 import com.nhnacademy.task.dto.project.tag.ProjectTagResponse;
+import com.nhnacademy.task.dto.project.tag.TagResponse;
 import com.nhnacademy.task.service.ProjectService;
 import java.util.List;
 import org.springframework.http.HttpStatus;
@@ -67,6 +68,15 @@ public class ProjectTagController {
         DeleteResponse projectTagDeleteResponse = projectService.deleteProjectTag(projectTagId);
 
         return new ResponseEntity<>(projectTagDeleteResponse, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/tag")
+    public ResponseEntity<List<TagResponse>> getAllCategory() {
+
+        List<TagResponse> tagResponseList = projectService.getAllTag();
+
+        return new ResponseEntity<>(tagResponseList, HttpStatus.OK);
     }
 
 }
