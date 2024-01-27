@@ -5,6 +5,7 @@ import com.nhnacademy.task.dto.project.ProjectRegisterAndModifyRequest;
 import com.nhnacademy.task.dto.project.ProjectRegisterAndModifyResponse;
 import com.nhnacademy.task.dto.project.ProjectResponse;
 import com.nhnacademy.task.service.ProjectService;
+import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,6 +27,14 @@ public class ProjectController {
     public ProjectController(ProjectService projectService) {
         this.projectService = projectService;
     }
+
+    @GetMapping({"/user/{userid}"})
+    public ResponseEntity<List<ProjectResponse>> getProjectsUserRegistered(@PathVariable(name = "userid") String userId) {
+
+        List<ProjectResponse> projectResponse = projectService.getProjectsUserRegisterd(userId);
+        return new ResponseEntity<>(projectResponse, HttpStatus.OK);
+    }
+
 
     @GetMapping({"/{projectId}"})
     public ResponseEntity<ProjectResponse> getProject(@PathVariable(name = "projectId") Long id) {

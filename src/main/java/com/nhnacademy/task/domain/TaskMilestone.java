@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -29,7 +30,7 @@ public class TaskMilestone {
     @JoinColumn(name = "task_id")
     private Task task;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "project_milestone_id")
     private ProjectMilestone projectMilestone;
 
