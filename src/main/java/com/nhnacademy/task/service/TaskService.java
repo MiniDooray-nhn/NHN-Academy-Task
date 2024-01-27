@@ -26,7 +26,7 @@ public class TaskService {
 
     //TODO Task가 아니라 Dto만들어서 뿌릴것
     @Transactional(readOnly = true)
-    public List<TaskPreviewDto> getTasksByProjectId(Long id) {
+    public List<TaskDto> getTasksByProjectId(Long id) {
         return taskRepository.findByProjectIdOrderByCreatedAt(id);
     }
 

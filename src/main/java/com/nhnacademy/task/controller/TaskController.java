@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-
 public class TaskController {
     private final TaskService taskService;
 
@@ -43,8 +42,8 @@ public class TaskController {
     }
 
     @GetMapping("/tasks")
-    public ResponseEntity<List<TaskPreviewDto>> getAllTaskPreview(@RequestParam(name = "projectId")Long projectId){
-        List<TaskPreviewDto> previewDto = taskService.getTasksByProjectId(projectId);
+    public ResponseEntity<List<TaskDto>> getAllTaskPreview(@RequestParam(name = "projectId")Long projectId){
+        List<TaskDto> previewDto = taskService.getTasksByProjectId(projectId);
         return new ResponseEntity<>(previewDto,HttpStatus.OK);
     }
 
