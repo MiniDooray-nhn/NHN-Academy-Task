@@ -39,7 +39,7 @@ public class Project {
     private LocalDate createdAt;
 
 
-    public ProjectRegisterAndModifyResponse converToDto() {
+    public ProjectRegisterAndModifyResponse convertToDto() {
         return new ProjectRegisterAndModifyResponse(this.userId, this.projectStatus.getId(), this.title);
     }
 

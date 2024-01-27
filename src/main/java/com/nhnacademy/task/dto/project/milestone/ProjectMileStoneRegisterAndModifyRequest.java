@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectMileStoneRegisterAndModifyRequest {
+public class   ProjectMileStoneRegisterAndModifyRequest {
 
     private String name;
 
