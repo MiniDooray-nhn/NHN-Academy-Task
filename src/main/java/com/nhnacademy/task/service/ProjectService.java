@@ -10,13 +10,14 @@ import com.nhnacademy.task.dto.project.DeleteResponse;
 import com.nhnacademy.task.dto.project.ProjectRegisterAndModifyRequest;
 import com.nhnacademy.task.dto.project.ProjectRegisterAndModifyResponse;
 import com.nhnacademy.task.dto.project.ProjectResponse;
-import com.nhnacademy.task.dto.project.member.ProjectMemberResponse;
 import com.nhnacademy.task.dto.project.member.ProjectMemberRegisterResponse;
+import com.nhnacademy.task.dto.project.member.ProjectMemberResponse;
 import com.nhnacademy.task.dto.project.milestone.ProjectMileStoneRegisterAndModifyRequest;
 import com.nhnacademy.task.dto.project.milestone.ProjectMileStoneRegisterAndModifyResponse;
 import com.nhnacademy.task.dto.project.milestone.ProjectMileStoneResponse;
 import com.nhnacademy.task.dto.project.tag.ProjectTagRegisterAndModifyResponse;
 import com.nhnacademy.task.dto.project.tag.ProjectTagResponse;
+import com.nhnacademy.task.dto.project.tag.TagResponse;
 import com.nhnacademy.task.exception.ProjectIsNotExistException;
 import com.nhnacademy.task.exception.ProjectMilestoneIsNotExistException;
 import com.nhnacademy.task.exception.ProjectStatusIsNotExistException;
@@ -65,7 +66,7 @@ public class ProjectService {
         return projectRepository.queryById(id);
     }
 
-    public List<ProjectResponse> getProjectsUserRegisterd(String userId){
+    public List<ProjectResponse> getProjectsUserRegisterd(String userId) {
 
         return projectRepository.findAllByUserId(userId);
     }
@@ -263,5 +264,10 @@ public class ProjectService {
         return projectMember.covertToDto();
 
     }
+
+    public List<TagResponse> getAllTag() {
+        return tagRepository.queryAllBy();
+    }
+
 
 }
