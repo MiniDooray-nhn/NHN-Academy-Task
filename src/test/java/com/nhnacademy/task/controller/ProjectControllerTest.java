@@ -2,11 +2,9 @@ package com.nhnacademy.task.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import com.nhnacademy.task.dto.project.DeleteResponse;
 import com.nhnacademy.task.dto.project.ProjectRegisterAndModifyRequest;
 import com.nhnacademy.task.dto.project.ProjectRegisterAndModifyResponse;
