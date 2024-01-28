@@ -1,0 +1,33 @@
+###
+GET http://localhost:8080/tasks/7
+
+
+###
+GET http://localhost:8888/tasks?projectId=1
+
+###
+POST http://localhost:8080/tasks
+Content-Type: application/json
+
+{
+  "userId" : "user2",
+  "title" : "제목ㅏssㅏ",
+  "contents" : "콘텐츠",
+  "projectId" : 2
+}
+
+###
+DELETE http://localhost:8080/tasks/5
+Content-Type: application/json
+
+###
+PUT http://localhost:8080/tasks
+Content-Type: application/json
+
+{
+  "id" : 7,
+  "userId" : "user2",
+  "title" : "제목수정",
+  "contents" : "콘텐츠수정",
+  "projectId" : 1
+}

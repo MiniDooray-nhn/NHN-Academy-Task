@@ -65,6 +65,11 @@ public class ProjectService {
         return projectRepository.queryById(id);
     }
 
+    public List<ProjectResponse> getProjectsUserRegisterd(String userId){
+
+        return projectRepository.findAllByUserId(userId);
+    }
+
     @Transactional
     public ProjectRegisterAndModifyResponse registerProjectByRequest(ProjectRegisterAndModifyRequest registerRequest) {
 
