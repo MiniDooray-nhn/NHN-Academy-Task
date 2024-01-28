@@ -12,11 +12,13 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@RequiredArgsConstructor
 @Table(name="task_milestone")
 public class TaskMilestone {
 
@@ -33,5 +35,16 @@ public class TaskMilestone {
     @OneToOne
     @JoinColumn(name = "project_milestone_id")
     private ProjectMilestone projectMilestone;
+
+    public TaskMilestone(Task task, ProjectMilestone projectMilestone) {
+        this.task = task;
+        this.projectMilestone = projectMilestone;
+    }
+
+    public TaskMilestone updateTaskMilestone(Task task, ProjectMilestone projectMilestone) {
+        this.task = task;
+        this.projectMilestone = projectMilestone;
+        return this;
+    }
 
 }
