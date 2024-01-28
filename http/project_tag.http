@@ -1,16 +1,16 @@
 ### /projects/tag/{projectTagId}
-GET http://localhost:8080/projects/tag/1
+GET http://localhost:8888/projects/tag/1
 
 ### /projects/{projectId}/tag
-GET http://localhost:8080/projects/2/tag
+GET http://localhost:8888/projects/2/tag
 
 ### /projects/{projectId}/tag/{tagId}
-POST http://localhost:8080/projects/2/tag/3
+POST http://localhost:8888/projects/2/tag/3
 Content-Type: application/json
 
 ### /projects/{projectTagId}/tag/{tagId}
-PUT http://localhost:8080/projects/1/tag/2
+PUT http://localhost:8888/projects/1/tag/2
 Content-Type: application/json
 
 ### /projects/tag/{projectsTagId}
-DELETE http://localhost:8080/projects/tag/5
+DELETE http://localhost:8888/projects/tag/5

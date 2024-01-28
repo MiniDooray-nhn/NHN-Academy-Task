@@ -1,9 +1,9 @@
 ###
-GET http://localhost:8080/tasktags/7
+GET http://localhost:8888/tasktags/7
 
 
 ###
-POST http://localhost:8080/tasktags
+POST http://localhost:8888/tasktags
 Content-Type: application/json
 
 {
@@ -13,10 +13,10 @@ Content-Type: application/json
 
 
 ###
-DELETE http://localhost:8080/tasktags/13
+DELETE http://localhost:8888/tasktags/13
 
 ###
-PUT http://localhost:8080/tasktags
+PUT http://localhost:8888/tasktags
 Content-Type: application/json
 
 {
